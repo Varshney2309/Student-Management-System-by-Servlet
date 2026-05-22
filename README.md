@@ -101,20 +101,96 @@ Password : admin123
 # Project Structure
 
 ```text
-src/main/java
+StudentManagementSystembyServlet
 │
-├── com.studentcourse.controller
-├── com.studentcourse.dao
-├── com.studentcourse.model
-└── com.studentcourse.util
-
-src/main/webapp
+├── src
+│   └── main
+│       ├── java
+│       │
+│       │   └── com.studentcourse
+│       │
+│       │       ├── controller
+│       │       │
+│       │       │   ├── LoginServlet.java
+│       │       │   ├── LogoutServlet.java
+│       │       │   ├── DashboardServlet.java
+│       │       │
+│       │       │   ├── AddStudentServlet.java
+│       │       │   ├── ViewStudentsServlet.java
+│       │       │   ├── EditStudentServlet.java
+│       │       │   ├── UpdateStudentServlet.java
+│       │       │   └── DeleteStudentServlet.java
+│       │       │
+│       │       │   ├── AddCourseServlet.java
+│       │       │   ├── ViewCoursesServlet.java
+│       │       │   ├── EditCourseServlet.java
+│       │       │   ├── UpdateCourseServlet.java
+│       │       │   └── DeleteCourseServlet.java
+│       │       │
+│       │       │   ├── RegistrationFormServlet.java
+│       │       │   ├── RegisterStudentCourseServlet.java
+│       │       │   ├── ViewRegistrationsServlet.java
+│       │       │   ├── UpdateRegistrationStatusServlet.java
+│       │       │   └── DeleteRegistrationServlet.java
+│       │
+│       │       ├── dao
+│       │       │
+│       │       │   ├── AdminDAO.java
+│       │       │   ├── StudentDAO.java
+│       │       │   ├── CourseDAO.java
+│       │       │   └── RegistrationDAO.java
+│       │
+│       │       ├── model
+│       │       │
+│       │       │   ├── Admin.java
+│       │       │   ├── Student.java
+│       │       │   ├── Course.java
+│       │       │   └── Registration.java
+│       │
+│       │       └── util
+│       │
+│       │           └── DBConnection.java
+│       │
+│       └── webapp
 │
-├── WEB-INF
-│   └── views
+│           ├── css
+│           │
+│           │   └── style.css
+│           │
+│           ├── WEB-INF
+│           │   │
+│           │   ├── web.xml
+│           │   │
+│           │   └── views
+│           │
+│           │       ├── login.jsp
+│           │       ├── dashboard.jsp
+│           │
+│           │       ├── student-form.jsp
+│           │       ├── student-list.jsp
+│           │       ├── student-edit.jsp
+│           │
+│           │       ├── course-form.jsp
+│           │       ├── course-list.jsp
+│           │       ├── course-edit.jsp
+│           │
+│           │       ├── registration-form.jsp
+│           │       ├── registration-list.jsp
+│           │       └── registration-edit.jsp
+│           │
+│           └── META-INF
 │
-└── css
+├── build
+│
+├── Libraries
+│
+├── Referenced Libraries
+│
+├── pom.xml
+│
+└── README.md
 ```
+
 
 ---
 

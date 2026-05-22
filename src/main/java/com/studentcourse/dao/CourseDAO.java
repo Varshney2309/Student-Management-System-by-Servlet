@@ -18,30 +18,30 @@ public class CourseDAO {
 
 		try {
 
-			Connection con = DBConnection.getConnection();
+			Connection connection = DBConnection.getConnection();
 
 			String query = "insert into courses(course_name,duration,fees,trainer_name) values(?,?,?,?)";
 
-			PreparedStatement ps = con.prepareStatement(query);
+			PreparedStatement preparedStatement = connection.prepareStatement(query);
 
-			ps.setString(1, c.getCourseName());
+			preparedStatement.setString(1, c.getCourseName());
 
-			ps.setString(2, c.getDuration());
+			preparedStatement.setString(2, c.getDuration());
 
-			ps.setDouble(3, c.getFees());
+			preparedStatement.setDouble(3, c.getFees());
 
-			ps.setString(4, c.getTrainerName());
+			preparedStatement.setString(4, c.getTrainerName());
 
-			int rows = ps.executeUpdate();
+			int rows = preparedStatement.executeUpdate();
 
 			if (rows > 0) {
 
 				status = true;
 			}
 
-		} catch (Exception e) {
+		} catch (Exception exception) {
 
-			e.printStackTrace();
+			exception.printStackTrace();
 		}
 
 		return status;
@@ -54,34 +54,34 @@ public class CourseDAO {
 
 		try {
 
-			Connection con = DBConnection.getConnection();
+			Connection connection = DBConnection.getConnection();
 
 			String query = "select * from courses";
 
-			PreparedStatement ps = con.prepareStatement(query);
+			PreparedStatement preparedStatement = connection.prepareStatement(query);
 
-			ResultSet rs = ps.executeQuery();
+			ResultSet resulSet = preparedStatement.executeQuery();
 
-			while (rs.next()) {
+			while (resulSet.next()) {
 
-				Course c = new Course();
+				Course course = new Course();
 
-				c.setCourseId(rs.getInt("course_id"));
+				course.setCourseId(resulSet.getInt("course_id"));
 
-				c.setCourseName(rs.getString("course_name"));
+				course.setCourseName(resulSet.getString("course_name"));
 
-				c.setDuration(rs.getString("duration"));
+				course.setDuration(resulSet.getString("duration"));
 
-				c.setFees(rs.getDouble("fees"));
+				course.setFees(resulSet.getDouble("fees"));
 
-				c.setTrainerName(rs.getString("trainer_name"));
+				course.setTrainerName(resulSet.getString("trainer_name"));
 
-				list.add(c);
+				list.add(course);
 			}
 
-		} catch (Exception e) {
+		} catch (Exception exception) {
 
-			e.printStackTrace();
+			exception.printStackTrace();
 		}
 
 		return list;
@@ -90,76 +90,76 @@ public class CourseDAO {
 	// GET COURSE BY ID
 	public Course getCourseById(int courseId) {
 
-		Course c = null;
+		Course course = null;
 
 		try {
 
-			Connection con = DBConnection.getConnection();
+			Connection connection = DBConnection.getConnection();
 
 			String query = "select * from courses where course_id=?";
 
-			PreparedStatement ps = con.prepareStatement(query);
+			PreparedStatement preparedStatement = connection.prepareStatement(query);
 
-			ps.setInt(1, courseId);
+			preparedStatement.setInt(1, courseId);
 
-			ResultSet rs = ps.executeQuery();
+			ResultSet resultSet = preparedStatement.executeQuery();
 
-			if (rs.next()) {
+			if (resultSet.next()) {
 
-				c = new Course();
+				course = new Course();
 
-				c.setCourseId(rs.getInt("course_id"));
+				course.setCourseId(resultSet.getInt("course_id"));
 
-				c.setCourseName(rs.getString("course_name"));
+				course.setCourseName(resultSet.getString("course_name"));
 
-				c.setDuration(rs.getString("duration"));
+				course.setDuration(resultSet.getString("duration"));
 
-				c.setFees(rs.getDouble("fees"));
+				course.setFees(resultSet.getDouble("fees"));
 
-				c.setTrainerName(rs.getString("trainer_name"));
+				course.setTrainerName(resultSet.getString("trainer_name"));
 			}
 
-		} catch (Exception e) {
+		} catch (Exception exception) {
 
-			e.printStackTrace();
+			exception.printStackTrace();
 		}
 
-		return c;
+		return course;
 	}
 
 	// UPDATE COURSE
-	public boolean updateCourse(Course c) {
+	public boolean updateCourse(Course course) {
 
 		boolean status = false;
 
 		try {
 
-			Connection con = DBConnection.getConnection();
+			Connection connection = DBConnection.getConnection();
 
 			String query = "update courses set course_name=?, duration=?, fees=?, trainer_name=? where course_id=?";
 
-			PreparedStatement ps = con.prepareStatement(query);
+			PreparedStatement preparedStatement = connection.prepareStatement(query);
 
-			ps.setString(1, c.getCourseName());
+			preparedStatement.setString(1, course.getCourseName());
 
-			ps.setString(2, c.getDuration());
+			preparedStatement.setString(2, course.getDuration());
 
-			ps.setDouble(3, c.getFees());
+			preparedStatement.setDouble(3, course.getFees());
 
-			ps.setString(4, c.getTrainerName());
+			preparedStatement.setString(4, course.getTrainerName());
 
-			ps.setInt(5, c.getCourseId());
+			preparedStatement.setInt(5, course.getCourseId());
 
-			int rows = ps.executeUpdate();
+			int rows = preparedStatement.executeUpdate();
 
 			if (rows > 0) {
 
 				status = true;
 			}
 
-		} catch (Exception e) {
+		} catch (Exception exception) {
 
-			e.printStackTrace();
+			exception.printStackTrace();
 		}
 
 		return status;
@@ -172,24 +172,24 @@ public class CourseDAO {
 
 		try {
 
-			Connection con = DBConnection.getConnection();
+			Connection connection = DBConnection.getConnection();
 
 			String query = "delete from courses where course_id=?";
 
-			PreparedStatement ps = con.prepareStatement(query);
+			PreparedStatement preparedStatement = connection.prepareStatement(query);
 
-			ps.setInt(1, courseId);
+			preparedStatement.setInt(1, courseId);
 
-			int rows = ps.executeUpdate();
+			int rows = preparedStatement.executeUpdate();
 
 			if (rows > 0) {
 
 				status = true;
 			}
 
-		} catch (Exception e) {
+		} catch (Exception exception) {
 
-			e.printStackTrace();
+			exception.printStackTrace();
 		}
 
 		return status;

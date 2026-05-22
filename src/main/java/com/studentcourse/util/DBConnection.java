@@ -25,11 +25,11 @@ public class DBConnection {
 
 			System.out.println("Connected Successfully");
 
-		} catch (Exception e) {
+		} catch (Exception exception) {
 
 			System.out.println("Connection Failed");
 
-			e.printStackTrace();
+			exception.printStackTrace();
 		}
 
 		return connection;

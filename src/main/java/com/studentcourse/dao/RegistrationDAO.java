@@ -18,30 +18,30 @@ public class RegistrationDAO {
 
 		try {
 
-			Connection con = DBConnection.getConnection();
+			Connection connection = DBConnection.getConnection();
 
 			String query = "insert into registrations(student_id,course_id,registration_date,status) values(?,?,?,?)";
 
-			PreparedStatement ps = con.prepareStatement(query);
+			PreparedStatement preparedStatement = connection.prepareStatement(query);
 
-			ps.setInt(1, r.getStudentId());
+			preparedStatement.setInt(1, r.getStudentId());
 
-			ps.setInt(2, r.getCourseId());
+			preparedStatement.setInt(2, r.getCourseId());
 
-			ps.setString(3, r.getRegistrationDate());
+			preparedStatement.setString(3, r.getRegistrationDate());
 
-			ps.setString(4, r.getStatus());
+			preparedStatement.setString(4, r.getStatus());
 
-			int rows = ps.executeUpdate();
+			int rows = preparedStatement.executeUpdate();
 
 			if (rows > 0) {
 
 				status = true;
 			}
 
-		} catch (Exception e) {
+		} catch (Exception exception) {
 
-			e.printStackTrace();
+			exception.printStackTrace();
 		}
 
 		return status;
@@ -54,34 +54,34 @@ public class RegistrationDAO {
 
 		try {
 
-			Connection con = DBConnection.getConnection();
+			Connection connection = DBConnection.getConnection();
 
 			String query = "select * from registrations";
 
-			PreparedStatement ps = con.prepareStatement(query);
+			PreparedStatement preparedStatement = connection.prepareStatement(query);
 
-			ResultSet rs = ps.executeQuery();
+			ResultSet resultSet = preparedStatement.executeQuery();
 
-			while (rs.next()) {
+			while (resultSet.next()) {
 
-				Registration r = new Registration();
+				Registration registration = new Registration();
 
-				r.setRegistrationId(rs.getInt("registration_id"));
+				registration.setRegistrationId(resultSet.getInt("registration_id"));
 
-				r.setStudentId(rs.getInt("student_id"));
+				registration.setStudentId(resultSet.getInt("student_id"));
 
-				r.setCourseId(rs.getInt("course_id"));
+				registration.setCourseId(resultSet.getInt("course_id"));
 
-				r.setRegistrationDate(rs.getString("registration_date"));
+				registration.setRegistrationDate(resultSet.getString("registration_date"));
 
-				r.setStatus(rs.getString("status"));
+				registration.setStatus(resultSet.getString("status"));
 
-				list.add(r);
+				list.add(registration);
 			}
 
-		} catch (Exception e) {
+		} catch (Exception exception) {
 
-			e.printStackTrace();
+			exception.printStackTrace();
 		}
 
 		return list;
@@ -94,26 +94,26 @@ public class RegistrationDAO {
 
 		try {
 
-			Connection con = DBConnection.getConnection();
+			Connection connection = DBConnection.getConnection();
 
 			String query = "update registrations set status=? where registration_id=?";
 
-			PreparedStatement ps = con.prepareStatement(query);
+			PreparedStatement preparedStatement = connection.prepareStatement(query);
 
-			ps.setString(1, statusValue);
+			preparedStatement.setString(1, statusValue);
 
-			ps.setInt(2, registrationId);
+			preparedStatement.setInt(2, registrationId);
 
-			int rows = ps.executeUpdate();
+			int rows = preparedStatement.executeUpdate();
 
 			if (rows > 0) {
 
 				status = true;
 			}
 
-		} catch (Exception e) {
+		} catch (Exception exception) {
 
-			e.printStackTrace();
+			exception.printStackTrace();
 		}
 
 		return status;
@@ -126,24 +126,24 @@ public class RegistrationDAO {
 
 		try {
 
-			Connection con = DBConnection.getConnection();
+			Connection connection= DBConnection.getConnection();
 
 			String query = "delete from registrations where registration_id=?";
 
-			PreparedStatement ps = con.prepareStatement(query);
+			PreparedStatement preparedStatement = connection.prepareStatement(query);
 
-			ps.setInt(1, registrationId);
+			preparedStatement.setInt(1, registrationId);
 
-			int rows = ps.executeUpdate();
+			int rows = preparedStatement.executeUpdate();
 
 			if (rows > 0) {
 
 				status = true;
 			}
 
-		} catch (Exception e) {
+		} catch (Exception exception) {
 
-			e.printStackTrace();
+			exception.printStackTrace();
 		}
 
 		return status;

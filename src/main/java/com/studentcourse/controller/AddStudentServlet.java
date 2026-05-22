@@ -35,9 +35,9 @@ public class AddStudentServlet extends HttpServlet {
 			return;
 		}
 
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/student-form.jsp");
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/student-form.jsp");
 
-		rd.forward(request, response);
+		requestDispatcher.forward(request, response);
 	}
 
 	@Override
@@ -53,34 +53,66 @@ public class AddStudentServlet extends HttpServlet {
 		int age = Integer.parseInt(request.getParameter("age"));
 
 		String city = request.getParameter("city");
+		if (studentName.isEmpty() || email.isEmpty() || phone.isEmpty() || city.isEmpty()) {
+
+			request.setAttribute("error", "All fields are required");
+
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/student-form.jsp");
+
+			requestDispatcher.forward(request, response);
+
+			return;
+		}
+
+		if (!email.endsWith("@gmail.com")) {
+
+			request.setAttribute("error", "Invalid Email");
+
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/student-form.jsp");
+
+			requestDispatcher.forward(request, response);
+
+			return;
+		}
+
+		if (phone.length() != 10) {
+
+			request.setAttribute("error", "Phone must be 10 digits");
+
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/student-form.jsp");
+
+			requestDispatcher.forward(request, response);
+
+			return;
+		}
 
 		// VALIDATION
 		if (age < 18) {
 
 			request.setAttribute("error", "Age must be 18 or above");
 
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/student-form.jsp");
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/student-form.jsp");
 
-			rd.forward(request, response);
+			requestDispatcher.forward(request, response);
 
 			return;
 		}
 
-		Student s = new Student();
+		Student student = new Student();
 
-		s.setStudentName(studentName);
+		student.setStudentName(studentName);
 
-		s.setEmail(email);
+		student.setEmail(email);
 
-		s.setPhone(phone);
+		student.setPhone(phone);
 
-		s.setAge(age);
+		student.setAge(age);
 
-		s.setCity(city);
+		student.setCity(city);
 
 		StudentDAO dao = new StudentDAO();
 
-		boolean status = dao.addStudent(s);
+		boolean status = dao.addStudent(student);
 
 		if (status) {
 
@@ -90,9 +122,9 @@ public class AddStudentServlet extends HttpServlet {
 
 			request.setAttribute("error", "Student Add Failed");
 
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/student-form.jsp");
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/student-form.jsp");
 
-			rd.forward(request, response);
+			requestDispatcher.forward(request, response);
 		}
 	}
 

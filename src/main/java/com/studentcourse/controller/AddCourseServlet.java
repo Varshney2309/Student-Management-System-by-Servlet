@@ -28,9 +28,9 @@ public class AddCourseServlet extends HttpServlet {
 			return;
 		}
 
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/course-form.jsp");
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/course-form.jsp");
 
-		rd.forward(request, response);
+		requestDispatcher.forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -44,19 +44,40 @@ public class AddCourseServlet extends HttpServlet {
 
 		String trainerName = request.getParameter("trainerName");
 
-		Course c = new Course();
+		if (courseName.isEmpty() || duration.isEmpty() || trainerName.isEmpty()) {
 
-		c.setCourseName(courseName);
+			request.setAttribute("error", "All fields are required");
 
-		c.setDuration(duration);
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/course-form.jsp");
 
-		c.setFees(fees);
+			requestDispatcher.forward(request, response);
 
-		c.setTrainerName(trainerName);
+			return;
+		}
+		if (fees < 1000) {
+
+			request.setAttribute("error", "Fees must be greater than 1000");
+
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/course-form.jsp");
+
+			requestDispatcher.forward(request, response);
+
+			return;
+		}
+
+		Course course = new Course();
+
+		course.setCourseName(courseName);
+
+		course.setDuration(duration);
+
+		course.setFees(fees);
+
+		course.setTrainerName(trainerName);
 
 		CourseDAO dao = new CourseDAO();
 
-		boolean status = dao.addCourse(c);
+		boolean status = dao.addCourse(course);
 
 		if (status) {
 
@@ -66,9 +87,9 @@ public class AddCourseServlet extends HttpServlet {
 
 			request.setAttribute("error", "Course Add Failed");
 
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/course-form.jsp");
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/course-form.jsp");
 
-			rd.forward(request, response);
+			requestDispatcher.forward(request, response);
 		}
 	}
 }

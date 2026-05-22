@@ -35,8 +35,8 @@ public class ViewRegistrationsServlet extends HttpServlet {
 
 		request.setAttribute("registrations", list);
 
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/registration-list.jsp");
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/registration-list.jsp");
 
-		rd.forward(request, response);
+		requestDispatcher.forward(request, response);
 	}
 }

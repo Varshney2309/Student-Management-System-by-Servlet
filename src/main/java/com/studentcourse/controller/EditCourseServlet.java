@@ -36,8 +36,8 @@ public class EditCourseServlet extends HttpServlet {
 
 		request.setAttribute("course", course);
 
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/course-edit.jsp");
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/course-edit.jsp");
 
-		rd.forward(request, response);
+		requestDispatcher.forward(request, response);
 	}
 }

@@ -23,12 +23,12 @@ public class LogoutServlet extends HttpServlet {
 			session.invalidate();
 		}
 
-		Cookie cookie = new Cookie("username", "");
-
-		cookie.setMaxAge(0);
-
-		response.addCookie(cookie);
-
+//		Cookie cookie = new Cookie("username", "");
+//
+//		cookie.setMaxAge(0);
+//
+//		response.addCookie(cookie);
+//
 		response.sendRedirect("login");
 	}
 }

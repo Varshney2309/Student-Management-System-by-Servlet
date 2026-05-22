@@ -9,75 +9,72 @@
 <head>
 <meta charset="UTF-8">
 <title>Registration List</title>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
+	<div class="container">
 
-	<h2>All Registrations</h2>
+		<h2>All Registrations</h2>
 
-	<br>
+		<br> <a href="registration/add"> Add Registration </a> <br>
+		<br>
 
-	<a href="registration/add"> Add Registration </a>
+		<table border="1" cellpadding="10">
 
-	<br>
-	<br>
+			<tr>
 
-	<table border="1" cellpadding="10">
+				<th>ID</th>
 
-		<tr>
+				<th>Student ID</th>
 
-			<th>ID</th>
+				<th>Course ID</th>
 
-			<th>Student ID</th>
+				<th>Date</th>
 
-			<th>Course ID</th>
+				<th>Status</th>
 
-			<th>Date</th>
+				<th>Actions</th>
 
-			<th>Status</th>
+			</tr>
 
-			<th>Actions</th>
+			<%
+			List<Registration> registrations = (List<Registration>) request.getAttribute("registrations");
 
-		</tr>
+			if (registrations != null) {
 
-		<%
-		List<Registration> registrations = (List<Registration>) request.getAttribute("registrations");
+				for (Registration r : registrations) {
+			%>
 
-		if (registrations != null) {
+			<tr>
 
-			for (Registration r : registrations) {
-		%>
+				<td><%=r.getRegistrationId()%></td>
 
-		<tr>
+				<td><%=r.getStudentId()%></td>
 
-			<td><%=r.getRegistrationId()%></td>
+				<td><%=r.getCourseId()%></td>
 
-			<td><%=r.getStudentId()%></td>
+				<td><%=r.getRegistrationDate()%></td>
 
-			<td><%=r.getCourseId()%></td>
+				<td><%=r.getStatus()%></td>
 
-			<td><%=r.getRegistrationDate()%></td>
+				<td><a
+					href="registration/update?id=<%=r.getRegistrationId()%>&status=COMPLETED">
+						Mark Completed </a> | <a
+					href="registration/delete?id=<%=r.getRegistrationId()%>"
+					onclick="return confirm('Delete this registration?')"> Delete </a></td>
 
-			<td><%=r.getStatus()%></td>
+			</tr>
 
-			<td><a
-				href="registration/update?id=<%=r.getRegistrationId()%>&status=COMPLETED">
-					Mark Completed </a> | <a
-				href="registration/delete?id=<%=r.getRegistrationId()%>">
-					Delete </a></td>
+			<%
+			}
+			}
+			%>
 
-		</tr>
+		</table>
 
-		<%
-		}
-		}
-		%>
-
-	</table>
-
-	<br>
-	<br>
-
-	<a href="dashboard"> Back To Dashboard </a>
+		<br> <br> <a href="dashboard"> Back To Dashboard </a>
+	</div>
 
 </body>
 </html>

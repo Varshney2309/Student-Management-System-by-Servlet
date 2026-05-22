@@ -16,114 +16,117 @@ import jakarta.servlet.http.HttpSession;
 @WebServlet("/student/update")
 public class UpdateStudentServlet extends HttpServlet {
 
-    @Override
-    public void init() {
+	@Override
+	public void init() {
 
-        System.out.println("UpdateStudentServlet Initialized");
-    }
+		System.out.println("UpdateStudentServlet Initialized");
+	}
 
-    @Override
-    protected void doPost(HttpServletRequest request,
-                          HttpServletResponse response)
-            throws ServletException, IOException {
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-        HttpSession session =
-                request.getSession(false);
+		HttpSession session = request.getSession(false);
 
-        if(session == null ||
-           session.getAttribute("loggedInUser") == null) {
+		if (session == null || session.getAttribute("loggedInUser") == null) {
 
-            response.sendRedirect("../login");
+			response.sendRedirect("../login");
 
-            return;
-        }
+			return;
+		}
 
-        int studentId =
-                Integer.parseInt(
-                        request.getParameter("studentId")
-                );
+		int studentId = Integer.parseInt(request.getParameter("studentId"));
 
-        String studentName =
-                request.getParameter("studentName");
+		String studentName = request.getParameter("studentName");
 
-        String email =
-                request.getParameter("email");
+		String email = request.getParameter("email");
 
-        String phone =
-                request.getParameter("phone");
+		String phone = request.getParameter("phone");
 
-        int age =
-                Integer.parseInt(
-                        request.getParameter("age")
-                );
+		int age = Integer.parseInt(request.getParameter("age"));
 
-        String city =
-                request.getParameter("city");
+		String city = request.getParameter("city");
 
-        // VALIDATION
-        if(age < 18) {
+		// VALIDATION
 
-            request.setAttribute(
-                    "error",
-                    "Age must be 18 or above"
-            );
+		if (studentName.isEmpty() || email.isEmpty() || phone.isEmpty() || city.isEmpty()) {
 
-            RequestDispatcher rd =
-                    request.getRequestDispatcher(
-                            "/WEB-INF/views/student-edit.jsp"
-                    );
+			request.setAttribute("error", "All fields are required");
 
-            rd.forward(request, response);
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/student-form.jsp");
 
-            return;
-        }
+			requestDispatcher.forward(request, response);
 
-        Student s =
-                new Student();
+			return;
+		}
 
-        s.setStudentId(studentId);
+		if (!email.endsWith("@gmail.com")) {
 
-        s.setStudentName(studentName);
+			request.setAttribute("error", "Invalid Email");
 
-        s.setEmail(email);
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/student-form.jsp");
 
-        s.setPhone(phone);
+			requestDispatcher.forward(request, response);
 
-        s.setAge(age);
+			return;
+		}
 
-        s.setCity(city);
+		if (phone.length() != 10) {
 
-        StudentDAO dao =
-                new StudentDAO();
+			request.setAttribute("error", "Phone must be 10 digits");
 
-        boolean status =
-                dao.updateStudent(s);
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/student-form.jsp");
 
-        if(status) {
+			requestDispatcher.forward(request, response);
 
-            response.sendRedirect(
-                    "../students"
-            );
+			return;
+		}
+		if (age < 18) {
 
-        } else {
+			request.setAttribute("error", "Age must be 18 or above");
 
-            request.setAttribute(
-                    "error",
-                    "Student Update Failed"
-            );
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/student-edit.jsp");
 
-            RequestDispatcher rd =
-                    request.getRequestDispatcher(
-                            "/WEB-INF/views/student-edit.jsp"
-                    );
+			requestDispatcher.forward(request, response);
 
-            rd.forward(request, response);
-        }
-    }
+			return;
+		}
 
-    @Override
-    public void destroy() {
+		Student student = new Student();
 
-        System.out.println("UpdateStudentServlet Destroyed");
-    }
+		student.setStudentId(studentId);
+
+		student.setStudentName(studentName);
+
+		student.setEmail(email);
+
+		student.setPhone(phone);
+
+		student.setAge(age);
+
+		student.setCity(city);
+
+		StudentDAO dao = new StudentDAO();
+
+		boolean status = dao.updateStudent(student);
+
+		if (status) {
+
+			response.sendRedirect("../students");
+
+		} else {
+
+			request.setAttribute("error", "Student Update Failed");
+
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/student-edit.jsp");
+
+			requestDispatcher.forward(request, response);
+		}
+	}
+
+	@Override
+	public void destroy() {
+
+		System.out.println("UpdateStudentServlet Destroyed");
+	}
 }

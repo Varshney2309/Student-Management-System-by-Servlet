@@ -25,9 +25,21 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/login.jsp");
+		Cookie[] cookies = request.getCookies();
 
-		rd.forward(request, response);
+		if (cookies != null) {
+
+			for (Cookie cookie : cookies) {
+
+				if (cookie.getName().equals("username")) {
+
+					request.setAttribute("rememberedUsername", cookie.getValue());
+				}
+			}
+		}
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/login.jsp");
+
+		requestDispatcher.forward(request, response);
 	}
 
 	@Override
@@ -37,6 +49,16 @@ public class LoginServlet extends HttpServlet {
 		String username = request.getParameter("username").trim();
 
 		String password = request.getParameter("password").trim();
+		if (username.isEmpty() || password.isEmpty()) {
+
+			request.setAttribute("error", "All fields are required");
+
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/login.jsp");
+
+			requestDispatcher.forward(request, response);
+
+			return;
+		}
 
 		String remember = request.getParameter("remember");
 
@@ -68,9 +90,9 @@ public class LoginServlet extends HttpServlet {
 
 			request.setAttribute("error", "Invalid Username or Password");
 
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/login.jsp");
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/login.jsp");
 
-			rd.forward(request, response);
+			requestDispatcher.forward(request, response);
 		}
 	}
 

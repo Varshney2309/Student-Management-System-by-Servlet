@@ -8,9 +8,9 @@ public class Test {
 
     public static void main(String[] args) {
 
-        Connection con = DBConnection.getConnection();
+        Connection connection = DBConnection.getConnection();
 
-        if(con != null) {
+        if(connection != null) {
 
             System.out.println("Database Connected Successfully");
 

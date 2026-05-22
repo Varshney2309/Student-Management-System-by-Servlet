@@ -26,19 +26,50 @@ public class RegisterStudentCourseServlet extends HttpServlet {
 
 		String status = request.getParameter("status");
 
-		Registration r = new Registration();
+		Registration registration = new Registration();
 
-		r.setStudentId(studentId);
+		if (registrationDate.isEmpty() || status.isEmpty()) {
 
-		r.setCourseId(courseId);
+			request.setAttribute("error", "All fields are required");
 
-		r.setRegistrationDate(registrationDate);
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/registration-form.jsp");
 
-		r.setStatus(status);
+			requestDispatcher.forward(request, response);
+
+			return;
+		}
+		if (studentId <= 0) {
+
+			request.setAttribute("error", "Invalid Student ID");
+
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/registration-form.jsp");
+
+			requestDispatcher.forward(request, response);
+
+			return;
+		}
+		if (courseId <= 0) {
+
+			request.setAttribute("error", "Invalid Course ID");
+
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/registration-form.jsp");
+
+			requestDispatcher.forward(request, response);
+
+			return;
+		}
+
+		registration.setStudentId(studentId);
+
+		registration.setCourseId(courseId);
+
+		registration.setRegistrationDate(registrationDate);
+
+		registration.setStatus(status);
 
 		RegistrationDAO dao = new RegistrationDAO();
 
-		boolean result = dao.addRegistration(r);
+		boolean result = dao.addRegistration(registration);
 
 		if (result) {
 
@@ -48,9 +79,9 @@ public class RegisterStudentCourseServlet extends HttpServlet {
 
 			request.setAttribute("error", "Registration Failed");
 
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/registration-form.jsp");
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/registration-form.jsp");
 
-			rd.forward(request, response);
+			requestDispatcher.forward(request, response);
 		}
 	}
 }

@@ -6,35 +6,36 @@
 <head>
 <meta charset="UTF-8">
 <title>Registration Form</title>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
+	<div class="container">
 
-	<h2>Student Course Registration</h2>
+		<h2>Student Course Registration</h2>
 
-	<form action="save" method="post">
+		<form action="save" method="post">
 
-		Student ID: <input type="number" name="studentId"> <br>
-		<br> Course ID: <input type="number" name="courseId"> <br>
-		<br> Registration Date: <input type="date"
-			name="registrationDate"> <br>
-		<br> Status: <select name="status">
+			Student ID: <input type="number" name="studentId" required> <br>
+			<br> Course ID: <input type="number" name="courseId" required> <br>
+			<br> Registration Date: <input type="date"
+				name="registrationDate" required> <br> <br> Status: <select
+				name="status">
 
-			<option value="ACTIVE">ACTIVE</option>
+				<option value="ACTIVE">ACTIVE</option>
 
-			<option value="COMPLETED">COMPLETED</option>
+				<option value="COMPLETED">COMPLETED</option>
 
-		</select> <br>
-		<br> <input type="submit" value="Register">
+			</select> <br> <br> <input type="submit" value="Register">
 
-	</form>
+		</form>
 
-	<br>
+		<br>
 
-	<p style="color: red;">${error}</p>
+		<p class="error">${error}</p>
 
-	<br>
-
-	<a href="../dashboard"> Back To Dashboard </a>
+		<br> <a href="../dashboard"> Back To Dashboard </a>
+	</div>
 
 </body>
 </html>

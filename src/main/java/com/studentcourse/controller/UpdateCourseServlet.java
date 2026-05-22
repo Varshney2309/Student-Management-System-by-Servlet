@@ -37,22 +37,43 @@ public class UpdateCourseServlet extends HttpServlet {
 		double fees = Double.parseDouble(request.getParameter("fees"));
 
 		String trainerName = request.getParameter("trainerName");
+		
+		if (courseName.isEmpty() || duration.isEmpty() || trainerName.isEmpty()) {
 
-		Course c = new Course();
+			request.setAttribute("error", "All fields are required");
 
-		c.setCourseId(courseId);
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/course-form.jsp");
 
-		c.setCourseName(courseName);
+			requestDispatcher.forward(request, response);
 
-		c.setDuration(duration);
+			return;
+		}
+		if (fees < 1000) {
 
-		c.setFees(fees);
+			request.setAttribute("error", "Fees must be greater than 1000");
 
-		c.setTrainerName(trainerName);
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/course-form.jsp");
+
+			requestDispatcher.forward(request, response);
+
+			return;
+		}
+
+		Course course = new Course();
+
+		course.setCourseId(courseId);
+
+		course.setCourseName(courseName);
+
+		course.setDuration(duration);
+
+		course.setFees(fees);
+
+		course.setTrainerName(trainerName);
 
 		CourseDAO dao = new CourseDAO();
 
-		boolean status = dao.updateCourse(c);
+		boolean status = dao.updateCourse(course);
 
 		if (status) {
 
@@ -62,9 +83,9 @@ public class UpdateCourseServlet extends HttpServlet {
 
 			request.setAttribute("error", "Course Update Failed");
 
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/course-edit.jsp");
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/course-edit.jsp");
 
-			rd.forward(request, response);
+			requestDispatcher.forward(request, response);
 		}
 	}
 }

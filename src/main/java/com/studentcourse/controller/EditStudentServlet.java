@@ -43,9 +43,9 @@ public class EditStudentServlet extends HttpServlet {
 
 		request.setAttribute("student", student);
 
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/student-edit.jsp");
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/student-edit.jsp");
 
-		rd.forward(request, response);
+		requestDispatcher.forward(request, response);
 	}
 
 	@Override

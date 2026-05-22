@@ -8,8 +8,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Edit Course</title>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
+<div class="container">
 
 	<%
 	Course c = (Course) request.getAttribute("course");
@@ -22,24 +25,23 @@
 		<input type="hidden" name="courseId" value="<%=c.getCourseId()%>">
 
 		Course Name: <input type="text" name="courseName"
-			value="<%=c.getCourseName()%>"> <br>
-		<br> Duration: <input type="text" name="duration"
-			value="<%=c.getDuration()%>"> <br>
-		<br> Fees: <input type="number" name="fees"
-			value="<%=c.getFees()%>"> <br>
-		<br> Trainer Name: <input type="text" name="trainerName"
-			value="<%=c.getTrainerName()%>"> <br>
-		<br> <input type="submit" value="Update Course">
+			value="<%=c.getCourseName()%>"> <br> <br> Duration:
+		<input type="text" name="duration" value="<%=c.getDuration()%>">
+		<br> <br> Fees: <input type="number" name="fees"
+			value="<%=c.getFees()%>"> <br> <br> Trainer Name: <input
+			type="text" name="trainerName" value="<%=c.getTrainerName()%>">
+		<br> <br> <input type="submit" value="Update Course">
 
 	</form>
 
 	<br>
 
-	<p style="color: red;">${error}</p>
+	<p class="error">${error}</p>
 
 	<br>
 
 	<a href="../courses"> Back To Courses </a>
+	</div>
 
 </body>
 </html>

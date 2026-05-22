@@ -35,8 +35,8 @@ public class ViewCoursesServlet extends HttpServlet {
 
 		request.setAttribute("courses", courseList);
 
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/course-list.jsp");
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/course-list.jsp");
 
-		rd.forward(request, response);
+		requestDispatcher.forward(request, response);
 	}
 }

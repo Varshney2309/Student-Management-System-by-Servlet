@@ -8,37 +8,39 @@
 <head>
 <meta charset="UTF-8">
 <title>Edit Student</title>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
+	<div class="container">
 
-	<%
-	Student s = (Student) request.getAttribute("student");
-	%>
+		<%
+		Student s = (Student) request.getAttribute("student");
+		%>
 
-	<h2>Edit Student</h2>
+		<h2>Edit Student</h2>
 
-	<form action="update" method="post">
+		<form action="update" method="post">
 
-		<input type="hidden" name="studentId" value="<%=s.getStudentId()%>">
+			<input type="hidden" name="studentId" value="<%=s.getStudentId()%>">
 
-		Student Name: <input type="text" name="studentName"
-			value="<%=s.getStudentName()%>"> <br> <br> Email: <input
-			type="email" name="email" value="<%=s.getEmail()%>"> <br>
-		<br> Phone: <input type="text" name="phone"
-			value="<%=s.getPhone()%>"> <br> <br> Age: <input
-			type="number" name="age" value="<%=s.getAge()%>"> <br> <br>
-		City: <input type="text" name="city" value="<%=s.getCity()%>">
-		<br> <br> <input type="submit" value="Update Student">
+			Student Name: <input type="text" name="studentName"
+				value="<%=s.getStudentName()%>"> <br> <br> Email:
+			<input type="email" name="email" value="<%=s.getEmail()%>"> <br>
+			<br> Phone: <input type="text" name="phone"
+				value="<%=s.getPhone()%>"> <br> <br> Age: <input
+				type="number" name="age" value="<%=s.getAge()%>"> <br>
+			<br> City: <input type="text" name="city"
+				value="<%=s.getCity()%>"> <br> <br> <input
+				type="submit" value="Update Student">
 
-	</form>
+		</form>
 
-	<br>
+		<br>
 
-	<p style="color: red;">${error}</p>
+		<p class="error">${error}</p>
 
-	<br>
-
-	<a href="../students"> Back To Students </a>
-
+		<br> <a href="../students"> Back To Students </a>
+	</div>
 </body>
 </html>

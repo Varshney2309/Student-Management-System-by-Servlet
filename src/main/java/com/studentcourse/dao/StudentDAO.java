@@ -18,32 +18,32 @@ public class StudentDAO {
 
 		try {
 
-			Connection con = DBConnection.getConnection();
+			Connection connection = DBConnection.getConnection();
 
 			String query = "insert into students(student_name,email,phone,age,city) values(?,?,?,?,?)";
 
-			PreparedStatement ps = con.prepareStatement(query);
+			PreparedStatement preparedStatement = connection.prepareStatement(query);
 
-			ps.setString(1, s.getStudentName());
+			preparedStatement.setString(1, s.getStudentName());
 
-			ps.setString(2, s.getEmail());
+			preparedStatement.setString(2, s.getEmail());
 
-			ps.setString(3, s.getPhone());
+			preparedStatement.setString(3, s.getPhone());
 
-			ps.setInt(4, s.getAge());
+			preparedStatement.setInt(4, s.getAge());
 
-			ps.setString(5, s.getCity());
+			preparedStatement.setString(5, s.getCity());
 
-			int rows = ps.executeUpdate();
+			int rows = preparedStatement.executeUpdate();
 
 			if (rows > 0) {
 
 				status = true;
 			}
 
-		} catch (Exception e) {
+		} catch (Exception exception) {
 
-			e.printStackTrace();
+			exception.printStackTrace();
 		}
 
 		return status;
@@ -56,36 +56,36 @@ public class StudentDAO {
 
 		try {
 
-			Connection con = DBConnection.getConnection();
+			Connection connection = DBConnection.getConnection();
 
 			String query = "select * from students";
 
-			PreparedStatement ps = con.prepareStatement(query);
+			PreparedStatement preparedStatement = connection.prepareStatement(query);
 
-			ResultSet rs = ps.executeQuery();
+			ResultSet resultSet = preparedStatement.executeQuery();
 
-			while (rs.next()) {
+			while (resultSet.next()) {
 
-				Student s = new Student();
+				Student student = new Student();
 
-				s.setStudentId(rs.getInt("student_id"));
+				student.setStudentId(resultSet.getInt("student_id"));
 
-				s.setStudentName(rs.getString("student_name"));
+				student.setStudentName(resultSet.getString("student_name"));
 
-				s.setEmail(rs.getString("email"));
+				student.setEmail(resultSet.getString("email"));
 
-				s.setPhone(rs.getString("phone"));
+				student.setPhone(resultSet.getString("phone"));
 
-				s.setAge(rs.getInt("age"));
+				student.setAge(resultSet.getInt("age"));
 
-				s.setCity(rs.getString("city"));
+				student.setCity(resultSet.getString("city"));
 
-				list.add(s);
+				list.add(student);
 			}
 
-		} catch (Exception e) {
+		} catch (Exception exception) {
 
-			e.printStackTrace();
+			exception.printStackTrace();
 		}
 
 		return list;
@@ -94,43 +94,43 @@ public class StudentDAO {
 	// GET STUDENT BY ID
 	public Student getStudentById(int studentId) {
 
-		Student s = null;
+		Student student = null;
 
 		try {
 
-			Connection con = DBConnection.getConnection();
+			Connection connection = DBConnection.getConnection();
 
 			String query = "select * from students where student_id=?";
 
-			PreparedStatement ps = con.prepareStatement(query);
+			PreparedStatement preparedStatement = connection.prepareStatement(query);
 
-			ps.setInt(1, studentId);
+			preparedStatement.setInt(1, studentId);
 
-			ResultSet rs = ps.executeQuery();
+			ResultSet resultSet = preparedStatement.executeQuery();
 
-			if (rs.next()) {
+			if (resultSet.next()) {
 
-				s = new Student();
+				student = new Student();
 
-				s.setStudentId(rs.getInt("student_id"));
+				student.setStudentId(resultSet.getInt("student_id"));
 
-				s.setStudentName(rs.getString("student_name"));
+				student.setStudentName(resultSet.getString("student_name"));
 
-				s.setEmail(rs.getString("email"));
+				student.setEmail(resultSet.getString("email"));
 
-				s.setPhone(rs.getString("phone"));
+				student.setPhone(resultSet.getString("phone"));
 
-				s.setAge(rs.getInt("age"));
+				student.setAge(resultSet.getInt("age"));
 
-				s.setCity(rs.getString("city"));
+				student.setCity(resultSet.getString("city"));
 			}
 
-		} catch (Exception e) {
+		} catch (Exception exception) {
 
-			e.printStackTrace();
+			exception.printStackTrace();
 		}
 
-		return s;
+		return student;
 	}
 
 	// UPDATE STUDENT
@@ -140,34 +140,34 @@ public class StudentDAO {
 
 		try {
 
-			Connection con = DBConnection.getConnection();
+			Connection connection = DBConnection.getConnection();
 
 			String query = "update students set student_name=?, email=?, phone=?, age=?, city=? where student_id=?";
 
-			PreparedStatement ps = con.prepareStatement(query);
+			PreparedStatement preparedStatement = connection.prepareStatement(query);
 
-			ps.setString(1, s.getStudentName());
+			preparedStatement.setString(1, s.getStudentName());
 
-			ps.setString(2, s.getEmail());
+			preparedStatement.setString(2, s.getEmail());
 
-			ps.setString(3, s.getPhone());
+			preparedStatement.setString(3, s.getPhone());
 
-			ps.setInt(4, s.getAge());
+			preparedStatement.setInt(4, s.getAge());
 
-			ps.setString(5, s.getCity());
+			preparedStatement.setString(5, s.getCity());
 
-			ps.setInt(6, s.getStudentId());
+			preparedStatement.setInt(6, s.getStudentId());
 
-			int rows = ps.executeUpdate();
+			int rows = preparedStatement.executeUpdate();
 
 			if (rows > 0) {
 
 				status = true;
 			}
 
-		} catch (Exception e) {
+		} catch (Exception exception) {
 
-			e.printStackTrace();
+			exception.printStackTrace();
 		}
 
 		return status;
@@ -180,24 +180,24 @@ public class StudentDAO {
 
 		try {
 
-			Connection con = DBConnection.getConnection();
+			Connection connection = DBConnection.getConnection();
 
 			String query = "delete from students where student_id=?";
 
-			PreparedStatement ps = con.prepareStatement(query);
+			PreparedStatement preparedStatement = connection.prepareStatement(query);
 
-			ps.setInt(1, studentId);
+			preparedStatement.setInt(1, studentId);
 
-			int rows = ps.executeUpdate();
+			int rows = preparedStatement.executeUpdate();
 
 			if (rows > 0) {
 
 				status = true;
 			}
 
-		} catch (Exception e) {
+		} catch (Exception exception) {
 
-			e.printStackTrace();
+			exception.printStackTrace();
 		}
 
 		return status;

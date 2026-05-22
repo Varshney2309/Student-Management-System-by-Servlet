@@ -31,9 +31,9 @@ public class AdminDAO {
 				status = true;
 			}
 
-		} catch (Exception e) {
+		} catch (Exception exception) {
 
-			e.getMessage();
+			exception.getMessage();
 		}
 
 		return status;

@@ -9,76 +9,73 @@
 <head>
 <meta charset="UTF-8">
 <title>Student List</title>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
+	<div class="container">
 
-	<h2>All Students</h2>
+		<h2>All Students</h2>
 
-	<br>
+		<br> <a href="student/add"> Add New Student </a> <br> <br>
 
-	<a href="student/add"> Add New Student </a>
+		<table border="1" cellpadding="10">
 
-	<br>
-	<br>
+			<tr>
 
-	<table border="1" cellpadding="10">
+				<th>ID</th>
 
-		<tr>
+				<th>Name</th>
 
-			<th>ID</th>
+				<th>Email</th>
 
-			<th>Name</th>
+				<th>Phone</th>
 
-			<th>Email</th>
+				<th>Age</th>
 
-			<th>Phone</th>
+				<th>City</th>
 
-			<th>Age</th>
+				<th>Actions</th>
 
-			<th>City</th>
+			</tr>
 
-			<th>Actions</th>
+			<%
+			List<Student> students = (List<Student>) request.getAttribute("students");
 
-		</tr>
+			if (students != null) {
 
-		<%
-		List<Student> students = (List<Student>) request.getAttribute("students");
+				for (Student s : students) {
+			%>
 
-		if (students != null) {
+			<tr>
 
-			for (Student s : students) {
-		%>
+				<td><%=s.getStudentId()%></td>
 
-		<tr>
+				<td><%=s.getStudentName()%></td>
 
-			<td><%=s.getStudentId()%></td>
+				<td><%=s.getEmail()%></td>
 
-			<td><%=s.getStudentName()%></td>
+				<td><%=s.getPhone()%></td>
 
-			<td><%=s.getEmail()%></td>
+				<td><%=s.getAge()%></td>
 
-			<td><%=s.getPhone()%></td>
+				<td><%=s.getCity()%></td>
 
-			<td><%=s.getAge()%></td>
+				<td><a href="student/edit?id=<%=s.getStudentId()%>"> Edit </a>
+					| <a href="student/delete?id=<%=s.getStudentId()%>"
+					onclick="return confirm('Delete this student?')"> Delete </a></td>
 
-			<td><%=s.getCity()%></td>
+			</tr>
 
-			<td><a href="student/edit?id=<%=s.getStudentId()%>"> Edit
-			</a> | <a href="student/delete?id=<%=s.getStudentId()%>"> Delete </a></td>
+			<%
+			}
+			}
+			%>
 
-		</tr>
+		</table>
 
-		<%
-		}
-		}
-		%>
-
-	</table>
-
-	<br>
-	<br>
-
-	<a href="dashboard"> Back To Dashboard </a>
+		<br> <br> <a href="dashboard"> Back To Dashboard </a>
+	</div>
 
 </body>
 </html>

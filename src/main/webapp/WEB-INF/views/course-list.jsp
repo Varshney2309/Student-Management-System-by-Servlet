@@ -9,73 +9,69 @@
 <head>
 <meta charset="UTF-8">
 <title>Course List</title>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
+	<div class="container">
 
-	<h2>All Courses</h2>
+		<h2>All Courses</h2>
 
-	<br>
+		<br> <a href="course/add"> Add New Course </a> <br> <br>
 
-	<a href="course/add"> Add New Course </a>
+		<table border="1" cellpadding="10">
 
-	<br>
-	<br>
+			<tr>
 
-	<table border="1" cellpadding="10">
+				<th>ID</th>
 
-		<tr>
+				<th>Course Name</th>
 
-			<th>ID</th>
+				<th>Duration</th>
 
-			<th>Course Name</th>
+				<th>Fees</th>
 
-			<th>Duration</th>
+				<th>Trainer</th>
 
-			<th>Fees</th>
+				<th>Actions</th>
 
-			<th>Trainer</th>
+			</tr>
 
-			<th>Actions</th>
+			<%
+			List<Course> courses = (List<Course>) request.getAttribute("courses");
 
-		</tr>
+			if (courses != null) {
 
-		<%
-		List<Course> courses = (List<Course>) request.getAttribute("courses");
+				for (Course c : courses) {
+			%>
 
-		if (courses != null) {
+			<tr>
 
-			for (Course c : courses) {
-		%>
+				<td><%=c.getCourseId()%></td>
 
-		<tr>
+				<td><%=c.getCourseName()%></td>
 
-			<td><%=c.getCourseId()%></td>
+				<td><%=c.getDuration()%></td>
 
-			<td><%=c.getCourseName()%></td>
+				<td><%=c.getFees()%></td>
 
-			<td><%=c.getDuration()%></td>
+				<td><%=c.getTrainerName()%></td>
 
-			<td><%=c.getFees()%></td>
+				<td><a href="course/edit?id=<%=c.getCourseId()%>"> Edit </a> |
+					<a href="course/delete?id=<%=c.getCourseId()%>"
+					onclick="return confirm('Delete this course?')"> Delete </a></td>
 
-			<td><%=c.getTrainerName()%></td>
+			</tr>
 
-			<td><a href="course/edit?id=<%=c.getCourseId()%>"> Edit </a> |
+			<%
+			}
+			}
+			%>
 
-				<a href="course/delete?id=<%=c.getCourseId()%>"> Delete </a></td>
+		</table>
 
-		</tr>
-
-		<%
-		}
-		}
-		%>
-
-	</table>
-
-	<br>
-	<br>
-
-	<a href="dashboard"> Back To Dashboard </a>
+		<br> <br> <a href="dashboard"> Back To Dashboard </a>
+	</div>
 
 </body>
 </html>

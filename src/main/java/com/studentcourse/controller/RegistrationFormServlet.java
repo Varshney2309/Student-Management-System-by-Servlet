@@ -25,8 +25,8 @@ public class RegistrationFormServlet extends HttpServlet {
 			return;
 		}
 
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/registration-form.jsp");
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/registration-form.jsp");
 
-		rd.forward(request, response);
+		requestDispatcher.forward(request, response);
 	}
 }

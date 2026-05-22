@@ -32,9 +32,9 @@ public class DashboardServlet extends HttpServlet {
 			return;
 		}
 
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/dashboard.jsp");
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/views/dashboard.jsp");
 
-		rd.forward(request, response);
+		requestDispatcher.forward(request, response);
 	}
 
 	@Override

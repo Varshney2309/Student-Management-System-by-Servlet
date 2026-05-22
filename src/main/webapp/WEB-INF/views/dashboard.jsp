@@ -6,34 +6,24 @@
 <head>
 <meta charset="UTF-8">
 <title>Dashboard</title>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
+	<div class="container">
 
-	<h1>Welcome To Dashboard</h1>
+		<h1>Welcome To Dashboard</h1>
 
-	<br>
+		<br>
 
-	<h3>Logged In User: ${loggedInUser}</h3>
+		<h3>Logged In User: ${loggedInUser}</h3>
 
-	<br>
-	<br>
+		<br> <br> <a href="students">Manage Students</a> <br> <br>
 
-	<a href="students">Manage Students</a>
-
-	<br>
-	<br>
-
-	<a href="courses">Manage Courses</a>
-
-	<br>
-	<br>
-
-	<a href="registrations">Manage Registrations</a>
-
-	<br>
-	<br>
-
-	<a href="logout">Logout</a>
+		<a href="courses">Manage Courses</a> <br> <br> <a
+			href="registrations">Manage Registrations</a> <br> <br> <a
+			href="logout">Logout</a>
+	</div>
 
 </body>
 </html>
